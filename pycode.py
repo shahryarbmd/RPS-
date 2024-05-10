@@ -5,14 +5,25 @@ L = "You lost"
 T = "Its a tie!"
 play = True
 
-
+rw = 0
+rt = 0
+rl = 0
+sw = 0
+st = 0
+sl = 0
+pw = 0
+pt = 0
+pl = 0
+r = 0
 #we start the game with taking the "user" input
 
 def start():
-    global play
+    global play, rw, rt, rl, sw, st, sl, pw, pt, pl, r
+
     play = True
     while play == True:
-        print("cool!")
+
+
         time.sleep(1)
         x = input("rock, paper, scissors? : ")
         if x in list:
@@ -23,48 +34,114 @@ def start():
 
 
          #opponent does their thing
-        '''
-        hoping to make the opponent action less random 
-        meaning they wont reuse scissors if they 
-        lost  with it or something like that
-        '''
 
-        opp = list.index(list[random.randint(0, 2)])
-        for i in range(1, 4):
-            print(i)
-            time.sleep(0.7)
-        print("opponent: ", list[opp])
 
 
 
-        # winloss conditions
-        # W,L,T were defined at the first few lines
-        if user == 0 and opp == 2 or user == 1 and opp == 0 or user == 2 and opp == 1:
-            time.sleep(1)
-            print(w)
-        elif user == opp:
-            time.sleep(1)
-            print(T)
+        opp = list.index(list[random.randint(0, 2)])
+        if r==0:
+           for i in range(1, 4):
+              print(i)
+              time.sleep(0.7)
+           print("opponent: ", list[opp])
+        elif (rw+rt)/r >= 0.25:
+           print("opponent: ", list[1])
+
+        elif (sw+st)/r >= 0.25:
+            print("opponent: ", list[0])
+
+        elif (pw+pt)/r >= 0.25:
+            print("opponent: ", list[2])
         else:
-            time.sleep(1)
-            print(L)
+            print("opponent: ", list[opp])
+        r += 1
 
 
-#it shouldn't have worked but it did???
-#replayabillity
+
+
+         # _______WIN CONDITIONS_______
+
+         #rock WIN if+
+
+        if user == 0 and opp == 2:
+           rw += 1
+           time.sleep(1)
+           print(w)
+
+         #rock TIE
+        elif user == 0 and opp == 0:
+           rt += 1
+           time.sleep(1)
+           print(T)
+
+         #rock LOSE
+        elif user == 0 and opp == 1:
+           rl += 1
+           time.sleep(1)
+           print(L)
+
+
+
+
+        #scissor WIN if++
+        if user == 2 and opp == 1:
+           sw +=1
+           time.sleep(1)
+           print(w)
+
+         #scissor TIE
+        elif user == 2 and opp == 2:
+           st +=1
+           time.sleep(1)
+           print(T)
+
+         #scissor LOSE
+        elif user == 2 and opp == 0:
+           sl += 1
+           time.sleep(1)
+           print(L)
+
+
+        #paper WIN if+++
+        if user == 1 and opp == 0:
+           pw +=1
+           time.sleep(1)
+           print(w)
+
+         #paper TIE
+        elif user == 1 and opp == 1:
+           pt += 1
+           time.sleep(1)
+           print(T)
+
+         #paper LOSE
+        elif user == 1 and opp == 2:
+           pl += 1
+           time.sleep(1)
+           print(L)
+        print(rw)
+        print(r)
+
+
+
+#replayabillity_______________________________________________
 
         if input("replay?: Y/N \n ").lower() == "y":
 
             play = True
+
             start()
         else:
 
             play = False
+            print("total games: ", r)
+            print("games won: ", rw + sw + pw)
+            print("games lost: ", rl + sl + pl)
             exit()
 
 
 #   corny starting
-#defined a func to use in start
+#defined a func to use in start__________________________________
 def why():
     print("why did you come here then", end = "", flush = True)
 dot = [".",".","."]
@@ -72,6 +149,7 @@ dot = [".",".","."]
 
 # this starts
 if input("wanna play?: Y/N \n").lower() == "y":
+   print("cool!")
 
    start()
    time.sleep(0.75)
