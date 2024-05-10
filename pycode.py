@@ -44,7 +44,7 @@ def start():
               print(i)
               time.sleep(0.7)
            print("opponent: ", list[opp])
-        elif (rw+rt)/r >= 0.25:
+        if (rw+rt)/r >= 0.25:
            print("opponent: ", list[1])
 
         elif (sw+st)/r >= 0.25:
@@ -69,13 +69,13 @@ def start():
            print(w)
 
          #rock TIE
-        elif user == 0 and opp == 0:
+        if user == 0 and opp == 0:
            rt += 1
            time.sleep(1)
            print(T)
 
          #rock LOSE
-        elif user == 0 and opp == 1:
+        if user == 0 and opp == 1:
            rl += 1
            time.sleep(1)
            print(L)
@@ -90,13 +90,13 @@ def start():
            print(w)
 
          #scissor TIE
-        elif user == 2 and opp == 2:
+        if user == 2 and opp == 2:
            st +=1
            time.sleep(1)
            print(T)
 
          #scissor LOSE
-        elif user == 2 and opp == 0:
+        if user == 2 and opp == 0:
            sl += 1
            time.sleep(1)
            print(L)
@@ -109,13 +109,13 @@ def start():
            print(w)
 
          #paper TIE
-        elif user == 1 and opp == 1:
+        if user == 1 and opp == 1:
            pt += 1
            time.sleep(1)
            print(T)
 
          #paper LOSE
-        elif user == 1 and opp == 2:
+        if user == 1 and opp == 2:
            pl += 1
            time.sleep(1)
            print(L)
