@@ -3,15 +3,34 @@
 dic = {
 }
 
+content = None
 def func(name, number):
    dic.update({name : number})
    f = open("Contacts.txt", "a")
 
-   if {name: number} in open("Contacts.txt", "r"):
-      print("it's already in there mate")
-   else:
-      f.write(name + ": " + number + "\n")
-      print("the contacts have been updated")
+   #dup remove+++++++++++++++++++++++++++
+   with open("Contacts.txt", "r") as w:
+      file = w.readlines()
+   wordlist = []
+   badlist = []
+
+   for line in file:
+      if line in wordlist:
+         badlist.append(line)
+      else:
+         wordlist.append(line)
+   #dup remove done----------------------
+
+   # clean lines put in++++++++++++++++++
+   file = open("Contacts.txt", 'w')
+   for line in wordlist:
+      file.write(line)
+
+
+
+
+   f.write(name + ": " + number + "\n")
+   print("the contacts have been updated")
 
 
 while True:
