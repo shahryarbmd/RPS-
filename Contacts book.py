@@ -1,13 +1,15 @@
 
 # contact book
+
 dic = {
 }
 
 content = None
 def func(name, number):
    dic.update({name : number})
-   f = open("Contacts.txt", "a")
 
+   f = open("Contacts.txt", "a")
+   f.write(name + ": " + number + "\n")
    #dup remove+++++++++++++++++++++++++++
    with open("Contacts.txt", "r") as w:
       file = w.readlines()
@@ -27,12 +29,9 @@ def func(name, number):
       file.write(line)
 
 
-
-
-   f.write(name + ": " + number + "\n")
    print("the contacts have been updated")
 
-
+#
 while True:
    name = input("enter the name:  \n")
    number = input("enter the number: \n")
@@ -41,3 +40,4 @@ while True:
    if x != "y":
        break
 
+print(dic)
