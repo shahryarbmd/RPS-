@@ -1,43 +1,88 @@
 
-# contact book
+Contacts = {}
+p = ""
+n = ""
 
-dic = {
-}
-
-content = None
-def func(name, number):
-   dic.update({name : number})
-
-   f = open("Contacts.txt", "a")
-   f.write(name + ": " + number + "\n")
-   #dup remove+++++++++++++++++++++++++++
-   with open("Contacts.txt", "r") as w:
-      file = w.readlines()
-   wordlist = []
-   badlist = []
-
+with open("Contacts.txt","r") as f:
+   file = f.readlines()
    for line in file:
-      if line in wordlist:
-         badlist.append(line)
-      else:
-         wordlist.append(line)
-   #dup remove done----------------------
+      if line != "\n":
+         line.strip("\n")
+         key, value = line.split(':')
+         key= key.strip()
+         value= value.strip()
+         Contacts[key] = value
 
-   # clean lines put in++++++++++++++++++
-   file = open("Contacts.txt", 'w')
-   for line in wordlist:
-      file.write(line)
-
-
-   print("the contacts have been updated")
-
-#
 while True:
-   name = input("enter the name:  \n")
-   number = input("enter the number: \n")
-   func(name, number)
-   x = input("do you want to add more?: Y/N \n").lower()
-   if x != "y":
-       break
+   global x
+   x = 0
+   x = int(input("1_Add new contact\n2_Remove a contact\n3_Edit number\n4_View contacts\n5_Search a name\n6_Exit\n"))
 
-print(dic)
+
+
+   # ADD NEW
+   if x == 1:
+      Contacts.update({input("please enter the name: "):input("enter the number: ")})
+
+
+   # REMOVE
+   elif x == 2:
+      Contacts.pop(input("enter the name you want to be removed: \n"))
+
+
+   # EDIT
+   elif x == 3:
+      try:
+
+         Contacts[input("Enter the contact's name whos number you want to edit: \n")] = int(input("Enter a number: \n"))
+      except:
+         print("Contact name does not exist")
+
+
+   # VIEW
+   elif x == 4:
+      print("----------")
+      for i in Contacts:
+         print(i)
+         print(Contacts[i])
+         print("----------")
+
+
+   # Search??
+   # if the input is in the dictionary show the key and value
+   elif x == 5:
+      c = input("enter the name you want to view")
+      if c in Contacts:
+         print(c)
+         print(Contacts[c])
+
+
+   # EXIT (else it if no more options dont forget)
+   elif x == 6:
+      if input("Are you sure?: Y/N \n").lower() == "y":
+         f = open("Contacts.txt", "w")
+         for i in Contacts:
+            f.write(i + ":" + str(Contacts[i] + "\n"))
+         f.close()
+         break
+      else:
+         pass
+
+
+   #write
+   f = open("Contacts.txt","w")
+
+   for i in Contacts:
+      f.write(i + ":" + str(Contacts[i]+ "\n"))
+
+
+
+   f.close()
+
+   # make a function to return "y" if it agrees to continue else it will set to non y and
+   # this prompt will not come back
+   if input("Continue?: Y/N \n").lower() != "y":
+      break
+
+
+
