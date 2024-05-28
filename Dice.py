@@ -1,6 +1,6 @@
-import random
+import random, time
 
-#D6
+
 '''
 ask for the choice
 roll
@@ -10,24 +10,77 @@ can use decorators
 
 a function that takes the x and uses the Dice setting to roll
 '''
+D = 0
+q = True
+
+#----------------------------------------------------------------------------------------------
+#                                             function section
+#----------------------------------------------------------------------------------------------
+
+# REROLL------------------------------------------------------------------
+def reroll(D,Sides):
 
 
+   D = random.randrange(int(Sides))
+
+   if D == 0:
+      while D == 0:
+        D = random.randrange(int(Sides))
+        if D != 0:
+          break
+   print("--Rolled {}--".format(D))
+
+#ROLL-----------------------------------------------------------------------------
 def Dice(Sides):
-   q = True
+   global q
+   #make sure it wont bug out again by setting Sides to atleast 2
+   Sides = int(Sides)
+   Sides += 1
+   if Sides == 1:
+      Sides += 1
+      print("dont do that again")
+
+
+   # rolling happens----
    while q == True:
 
       D = random.randrange(int(Sides))
-      if D != 0:
-         print("Rolled {}".format(D))
-         q = False
+
+      if D == 0:
+         while D == 0:
+            D = random.randrange(int(Sides))
+            if D != 0:
+               break
+
+      # outputs the result of roll
+      time.sleep(0.1)
+      print("--Rolled {}--".format(D))
+      time.sleep(0.4)
+
+      #REROLL
+      while True:
+         time.sleep(0.2)
+         if input("Reroll?: Y/N \n").lower() == "y":
+            reroll(D,Sides)
+            time.sleep(0.4)
+         else:
+            break
+      if input("Change the dice?: Y/N \n").lower() == "y":
+         Dice(input("Enter your dice Sides(number): \n"))
+
       else:
-         pass
+         q = False
 
-while True:
-   try:
-      Dice(input("Enter your dice Sides(number): \n"))
-   except ValueError:
-      print("you didnt enter a number")
-   #x = input("Choose your dice: \n 1_D6 \n2_D8\n3_D12\n4_D14\n5_D16\n6_D18\n7_D20")
 
-   #if x == 1:
+#----------------------------------------------------------------------------------------------
+#                                      function section ended
+#----------------------------------------------------------------------------------------------
+
+# start the engine !
+try:
+
+   Dice(input("Enter your dice Sides(number): \n"))
+   time.sleep(0.5)
+except ValueError:
+   print("you didnt enter a number")
+
